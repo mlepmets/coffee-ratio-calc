@@ -1,18 +1,16 @@
 <template>
-  <div class="container">
-    <div class="element">
-      <div class="display">
-        <i class="fas fa-minus" @click="decrementItem"></i>
-        <input
-          type="number"
-          id="{{ingredientName}}"
-          v-on:input="calculate"
-          v-model="ingredientValue"
-        >
-        <i class="fas fa-plus" @click="incrementItem"></i>
-      </div>
-      <div class="units">resulting coffee (ml)</div>
+  <div class="element">
+    <div class="display">
+      <i class="fas fa-minus" @click="decrementItem"></i>
+      <input
+        type="number"
+        :id="name"
+        v-on:input="calculate"
+        v-model="this.ingredientValue"
+      />
+      <i class="fas fa-plus" @click="incrementItem"></i>
     </div>
+    <div class="units">{{ units }}</div>
   </div>
 </template>
 
@@ -25,6 +23,10 @@ export default {
     },
     val: {
       type: Number,
+      required: true
+    },
+    units: {
+      type: String,
       required: true
     }
   },
@@ -40,10 +42,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.container
-  display: flex
-  align-items: center
-  justify-content: center
+
 .element
   display: inline
   width: 20vw
@@ -69,7 +68,7 @@ input
   padding: none
   font-family: 'Roboto'
   font-weight: 400
-.fas 
+.fas
   color: black
   display: none
 .display
@@ -96,20 +95,20 @@ p
   font-weight: 400
 
 // Chrome spin buttons
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button 
-  -webkit-appearance: none; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+  -webkit-appearance: none;
   margin: 0;
 
 // Mozilla spin buttons and focus
 input[type=number]
   -moz-appearance: textfield
-input:invalid 
+input:invalid
   box-shadow: none
 
 
 // Media queries
-@media screen and (max-width: 1200px) 
+@media screen and (max-width: 1200px)
   .container
     flex-wrap: wrap
     margin-top: 5vh
@@ -119,7 +118,7 @@ input:invalid
     width: 40vw
     font-size: 12vw
   .units
-    font-size: 2.5vw    
+    font-size: 2.5vw
   h1
     font-size: 7vw
   p
@@ -140,7 +139,7 @@ input:invalid
     width: 70vw
     font-size: 17vw
     height: 19vw
-    
+
   .units
     font-size: 4vw
     bottom: 10px

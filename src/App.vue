@@ -6,49 +6,20 @@
     </header>
     <main>
       <div class="container">
-        <div class="element">
-          <div class="display">
-            <i class="fas fa-minus" @click="decrementItem"></i>
-            <input type="number" id="brew" v-on:input="calculate" v-model="resultingCoffeeAmount">
-            <i class="fas fa-plus" @click="incrementItem"></i>
-          </div>
-          <div class="units">resulting coffee (ml)</div>
-        </div>
-        <div class="element">
-          <div class="display">
-            <i class="fas fa-minus"></i>
-            <input type="number" id="water" v-on:input="calculate" v-model="waterAmount">
-            <i class="fas fa-plus"></i>
-          </div>
-          <div class="units">water (ml)</div>
-        </div>
-        <div class="element">
-          <div class="display">
-            <i class="fas fa-minus"></i>
-            <input type="number" id="grounds" v-on:input="calculate" v-model="coffeeGroundsAmount">
-            <i class="fas fa-plus"></i>
-          </div>
-          <div class="units">grounds (g)</div>
-        </div>
-        <div class="element">
-          <div class="display">
-            <i class="fas fa-minus"></i>
-            <input type="number" id="ratio" v-on:input="calculate" v-model="coffeeToWaterRatio">
-            <i class="fas fa-plus"></i>
-          </div>
-          <div class="units">ratio (water per gram)</div>
-        </div>
+        <Ingredient name="brew" val="175" units="ml"></Ingredient>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import Ingredient from './components/Ingredient.vue'
 
 export default {
   name: 'app',
-  components: {},
+  components: {
+    Ingredient
+  },
   data() {
     return {
       coffeeGroundsAmount: 12.5, // grams
@@ -111,7 +82,7 @@ export default {
 
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700')
-#app 
+#app
   font-family: 'Roboto'
   font-weight: 400
   -webkit-font-smoothing: antialiased
@@ -119,7 +90,10 @@ export default {
   text-align: center
   color: #2c3e50
   margin-top: 10vh
-
+.container
+  display: flex
+  align-items: center
+  justify-content: center
 body
   margin: 0
   padding: 0
@@ -129,7 +103,4 @@ body
 html
   margin: 0
   padding: 0
-
-
-
 </style>
