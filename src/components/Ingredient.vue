@@ -3,7 +3,7 @@
     <div class="element">
       <div class="display">
         <i class="fas fa-minus" @click="decrementItem"></i>
-        <input type="number" id="brew" v-on:input="calculate" v-model="resultingCoffeeAmount">
+        <input type="number" id="brew" v-on:input="calculate" v-model="ingredientAmount">
         <i class="fas fa-plus" @click="incrementItem"></i>
       </div>
       <div class="units">resulting coffee (ml)</div>
@@ -14,17 +14,19 @@
 <script>
 export default {
   props: {
-    name: {
+    ingName: {
       type: String,
       required: true
     },
-    value: {
+    ingValue: {
       type: Number,
       required: true
     }
   },
   data() {
-    return {}
+    return {
+      ingredientAmount: this.ingValue
+    }
   },
   methods: {},
   watch: {},
