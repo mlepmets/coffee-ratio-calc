@@ -1,20 +1,16 @@
 <template>
   <div class="element">
     <div class="display">
-      <i class="fas fa-minus" @click="decrementItem"></i>
-      <input
-        type="number"
-        :id="name"
-        v-on:input="calculate"
-        v-model="this.ingredientValue"
-      />
-      <i class="fas fa-plus" @click="incrementItem"></i>
+      <!-- <i class="fas fa-minus" @click="decrementItem"></i> -->
+      <input type="number" :id="name" :value="val" v-on:input="calculate">
+      <!-- <i class="fas fa-plus" @click="incrementItem"></i> -->
     </div>
-    <div class="units">{{ units }}</div>
+    <div class="description">{{ description }}</div>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     name: {
@@ -25,18 +21,19 @@ export default {
       type: Number,
       required: true
     },
-    units: {
+    description: {
       type: String,
       required: true
     }
   },
   data() {
-    return {
-      ingredientName: this.name,
-      ingredientValue: this.val
+    return {}
+  },
+  methods: {
+    calculate(): {
+      this.$emit('calculate-new-values' newPropvalue) // newPropvalue not implemented!
     }
   },
-  methods: {},
   watch: {},
   computed: {}
 }
@@ -46,7 +43,7 @@ export default {
 .element
   display: inline
   width: 20vw
-.units
+.description
   position: relative
   bottom: 15px
   left: 0px
@@ -117,7 +114,7 @@ input:invalid
   input
     width: 40vw
     font-size: 12vw
-  .units
+  .description
     font-size: 2.5vw
   h1
     font-size: 7vw
@@ -140,7 +137,7 @@ input:invalid
     font-size: 17vw
     height: 19vw
 
-  .units
+  .description
     font-size: 4vw
     bottom: 10px
   h1

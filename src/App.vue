@@ -6,7 +6,26 @@
     </header>
     <main>
       <div class="container">
-        <Ingredient name="brew" val="175" units="ml"></Ingredient>
+        <Ingredient
+          :name="ingredients.brew.name"
+          :val="ingredients.brew.value"
+          :description="ingredients.brew.description"
+        ></Ingredient>
+        <Ingredient
+          :name="ingredients.water.name"
+          :val="ingredients.water.value"
+          :description="ingredients.water.description"
+        ></Ingredient>
+        <Ingredient
+          :name="ingredients.grounds.name"
+          :val="ingredients.grounds.value"
+          :description="ingredients.grounds.description"
+        ></Ingredient>
+        <Ingredient
+          :name="ingredients.ratio.name"
+          :val="ingredients.ratio.value"
+          :description="ingredients.ratio.description"
+        ></Ingredient>
       </div>
     </main>
   </div>
@@ -24,12 +43,32 @@ export default {
     return {
       coffeeGroundsAmount: 12.5, // grams
       coffeeToWaterRatio: 16,
-      resultingCoffeeAmount: 175, // milliliters
+      resultingCoffeeAmount: +175, // milliliters
       waterAmount: 200,
       waterLossRatio: 0.875,
       waterGainRatio: 1.14285, // 1.125
-      // waterGainRatio: 1.14285
-      focusedElement: null
+      ingredients: {
+        brew: {
+          name: 'brew',
+          value: +175,
+          description: 'resulting coffee (ml)'
+        },
+        water: {
+          name: 'water',
+          value: +200,
+          description: 'water (ml)'
+        },
+        grounds: {
+          name: 'grounds',
+          value: +12.5,
+          description: 'coffee grounds (g)'
+        },
+        ratio: {
+          name: 'ratio',
+          value: +16,
+          description: 'ratio (water/grounds)'
+        }
+      }
     }
   },
   methods: {
