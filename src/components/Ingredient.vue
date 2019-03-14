@@ -1,23 +1,24 @@
 <template>
   <div class="element">
     <div class="display">
-      <Decrementer v-on:decrement="emitDecrement"></Decrementer>
+      <!-- <Decrementer v-on:decrement="emitDecrement"></Decrementer> -->
+      <i class="fas fa-minus" @click="emitDecrement"></i>
       <input type="number" :id="id" :value="value" @change="emitInput" />
-      <Incrementer v-on:increment="emitIncrement"></Incrementer>
-      <!-- <i class="fas fa-plus" @click="incrementItem"></i> -->
+      <!-- <Incrementer v-on:increment="emitIncrement"></Incrementer> -->
+      <i class="fas fa-plus" @click="emitIncrement"></i>
     </div>
     <div class="description">{{ description }}</div>
   </div>
 </template>
 
 <script>
-import Incrementer from './Incrementer.vue'
-import Decrementer from './Decrementer.vue'
+// import Incrementer from './Incrementer.vue'
+// import Decrementer from './Decrementer.vue'
 export default {
-  components: {
-    Incrementer,
-    Decrementer
-  },
+  // components: {
+  //   Incrementer,
+  //   Decrementer
+  // },
   props: {
     id: {
       type: String,
@@ -37,7 +38,10 @@ export default {
   },
   methods: {
     emitInput(event) {
-      this.$emit('input', { id: this.id, value: event.target.value })
+      this.$emit('input', {
+        id: this.id,
+        value: parseFloat(event.target.value)
+      })
     },
     emitIncrement() {
       let newValue = this.value + 1
@@ -67,7 +71,7 @@ export default {
 input
   background: none
   outline: none
-    border: none
+  border: none
   width: 20vw
   display: block
   text-align: center
@@ -80,6 +84,8 @@ input
 .fas
   color: black
   display: none
+  visibility: none
+
 .display
   display: flex
   flex-direction: row
@@ -142,7 +148,9 @@ input:invalid
     width: 90vw
   .display
     justify-content: center
-
+  .fas
+    display: block
+    scolor: black
   input
     width: 70vw
     font-size: 17vw

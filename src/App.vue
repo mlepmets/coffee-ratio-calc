@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       waterLossRatio: 0.875,
-      waterGainRatio: 1.14285,
+      waterGainRatio: 1.14288,
       ingredients: {
         // base values
         brew: {
@@ -75,15 +75,15 @@ export default {
   },
   methods: {
     fixNumber(num) {
-      // fix number to be one decimal after comma
-      num = parseFloat(num.toFixed(1))
+      // fix number to be three decimal after comma
+      num = parseFloat(num.toFixed(3))
       if (num % 1 === 0) {
         return parseInt(num)
       }
       return num
     },
     calculate(data) {
-      this.ingredients[data.id].value = parseFloat(data.value)
+      this.ingredients[data.id].value = data.value
       if (data.id === 'brew') {
         // this.calcGrounds()
         this.calcWaterBasedOnBrew()
@@ -122,7 +122,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700')
 #app
   font-family: 'Roboto'
