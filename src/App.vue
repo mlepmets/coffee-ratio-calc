@@ -75,8 +75,8 @@ export default {
   },
   methods: {
     fixNumber(num) {
-      // fix number to be three decimal after comma
-      num = parseFloat(num.toFixed(3))
+      // fix number to be one decimal after comma
+      num = parseFloat(num.toFixed(1))
       if (num % 1 === 0) {
         return parseInt(num)
       }
