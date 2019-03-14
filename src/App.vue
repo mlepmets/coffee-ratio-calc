@@ -144,5 +144,25 @@ body
 
 html
   margin: 0
-  padding: 0
+  padding: 0 10px 0 10px
+h1
+  font-size: 5vw
+  font-weight: 400
+  margin-top: 0
+p
+  font-size: 2vw
+  font-family: 'Roboto'
+  font-weight: 400
+@media screen and (max-width: 1200px)
+  h1
+    font-size: 8vw
+  p
+    font-size: 4vw
+@media screen and (max-width: 500px)
+  h1
+    font-size: 12vw
+    margin-bottom: 0
+  p
+    font-size: 5vw
+    margin-top: 0
 </style>

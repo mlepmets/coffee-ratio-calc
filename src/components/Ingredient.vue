@@ -98,14 +98,7 @@ input
 #ratio
   color: #666
 
-h1
-  font-size: 5vw
-  font-weight: 400
-  margin-top: 0
-p
-  font-size: 2vw
-  font-family: 'Roboto'
-  font-weight: 400
+
 
 // Chrome spin buttons
 input[type=number]::-webkit-inner-spin-button,
@@ -118,7 +111,8 @@ input[type=number]
   -moz-appearance: textfield
 input:invalid
   box-shadow: none
-
+i
+  display: block
 
 // Media queries
 @media screen and (max-width: 1200px)
@@ -132,10 +126,7 @@ input:invalid
     font-size: 12vw
   .description
     font-size: 2.5vw
-  h1
-    font-size: 7vw
-  p
-    font-size: 3vw
+
 @media screen and (max-width: 500px)
   #app
     margin-top: 1vh
@@ -157,10 +148,4 @@ input:invalid
   .description
     font-size: 4vw
     bottom: 10px
-  h1
-    font-size: 12vw
-    margin-bottom: 0
-  p
-    font-size: 5vw
-    margin-top: 0
 </style>
