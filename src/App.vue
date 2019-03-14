@@ -75,15 +75,15 @@ export default {
   },
   methods: {
     fixNumber(num) {
+      // fix number to be one decimal after comma
       num = parseFloat(num.toFixed(1))
       if (num % 1 === 0) {
-        return Math.trunc(num)
+        return parseInt(num)
       }
       return num
     },
     calculate(data) {
-      console.log('hello2')
-      this.ingredients[data.id].value = data.value
+      this.ingredients[data.id].value = parseFloat(data.value)
       if (data.id === 'brew') {
         // this.calcGrounds()
         this.calcWaterBasedOnBrew()

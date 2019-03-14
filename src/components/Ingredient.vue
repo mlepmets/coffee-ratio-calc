@@ -1,8 +1,8 @@
 <template>
   <div class="element">
     <div class="display">
-      <!-- <i class="fas fa-minus" @click="decrementItem"></i> -->
-      <input type="number" :id="id" :value="value" @input="emitInput" />
+      <Decrementer v-on:decrement="emitDecrement"></Decrementer>
+      <input type="number" :id="id" :value="value" @change="emitInput" />
       <Incrementer v-on:increment="emitIncrement"></Incrementer>
       <!-- <i class="fas fa-plus" @click="incrementItem"></i> -->
     </div>
@@ -12,9 +12,11 @@
 
 <script>
 import Incrementer from './Incrementer.vue'
+import Decrementer from './Decrementer.vue'
 export default {
   components: {
-    Incrementer
+    Incrementer,
+    Decrementer
   },
   props: {
     id: {
@@ -39,6 +41,10 @@ export default {
     },
     emitIncrement() {
       let newValue = this.value + 1
+      this.$emit('input', { id: this.id, value: newValue })
+    },
+    emitDecrement() {
+      let newValue = this.value - 1
       this.$emit('input', { id: this.id, value: newValue })
     }
   }
