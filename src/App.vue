@@ -7,24 +7,28 @@
     <main>
       <div class="container">
         <Ingredient
-          :name="ingredients.brew.name"
-          :val="ingredients.brew.value"
+          :id="ingredients.brew.name"
+          :value="ingredients.brew.value"
           :description="ingredients.brew.description"
+          v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :name="ingredients.water.name"
-          :val="ingredients.water.value"
+          :id="ingredients.water.name"
+          :value="ingredients.water.value"
           :description="ingredients.water.description"
+          v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :name="ingredients.grounds.name"
-          :val="ingredients.grounds.value"
+          :id="ingredients.grounds.name"
+          :value="ingredients.grounds.value"
           :description="ingredients.grounds.description"
+          v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :name="ingredients.ratio.name"
-          :val="ingredients.ratio.value"
+          :id="ingredients.ratio.name"
+          :value="ingredients.ratio.value"
           :description="ingredients.ratio.description"
+          v-on:input="calculate"
         ></Ingredient>
       </div>
     </main>
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+// import bus from './eventBus.js'
 import Ingredient from './components/Ingredient.vue'
 
 export default {
@@ -41,31 +46,28 @@ export default {
   },
   data() {
     return {
-      coffeeGroundsAmount: 12.5, // grams
-      coffeeToWaterRatio: 16,
-      resultingCoffeeAmount: +175, // milliliters
-      waterAmount: 200,
       waterLossRatio: 0.875,
-      waterGainRatio: 1.14285, // 1.125
+      waterGainRatio: 1.14285,
       ingredients: {
+        // base values
         brew: {
           name: 'brew',
-          value: +175,
+          value: 175,
           description: 'resulting coffee (ml)'
         },
         water: {
           name: 'water',
-          value: +200,
+          value: 200,
           description: 'water (ml)'
         },
         grounds: {
           name: 'grounds',
-          value: +12.5,
+          value: 12.5,
           description: 'coffee grounds (g)'
         },
         ratio: {
           name: 'ratio',
-          value: +16,
+          value: 16,
           description: 'ratio (water/grounds)'
         }
       }
@@ -73,53 +75,54 @@ export default {
   },
   methods: {
     fixNumber(num) {
-      num = parseFloat(Math.round(num * 100) / 100).toFixed(1)
+      num = parseFloat(num.toFixed(1))
       if (num % 1 === 0) {
         return Math.trunc(num)
       }
       return num
     },
-    calculate(event) {
-      if (event.target.id === 'brew') {
+    calculate(data) {
+      console.log('hello2')
+      this.ingredients[data.id].value = data.value
+      if (data.id === 'brew') {
         // this.calcGrounds()
         this.calcWaterBasedOnBrew()
-        console.log('hello')
       }
-      if (event.target.id === 'water') {
+      if (data.id === 'water') {
         this.calcResultingCoffee()
         this.calcGrounds()
       }
-      if (event.target.id === 'grounds') {
+      if (data.id === 'grounds') {
         this.calcWater()
         this.calcResultingCoffee()
       }
-      if (event.target.id === 'ratio') {
+      if (data.id === 'ratio') {
         this.calcWater()
         this.calcResultingCoffee()
       }
     },
     calcWater() {
-      let n = this.coffeeGroundsAmount * this.coffeeToWaterRatio
+      let n = this.ingredients.grounds.value * this.ingredients.ratio.value
 
-      this.waterAmount = Number(this.fixNumber(n))
+      this.ingredients.water.value = this.fixNumber(n)
     },
     calcWaterBasedOnBrew() {
-      let n = this.resultingCoffeeAmount * this.waterGainRatio
-      this.waterAmount = Number(this.fixNumber(n))
+      let n = this.ingredients.brew.value * this.waterGainRatio
+      this.ingredients.water.value = this.fixNumber(n)
     },
     calcResultingCoffee() {
-      let n = this.waterAmount * this.waterLossRatio
-      this.resultingCoffeeAmount = Number(this.fixNumber(n))
+      let n = this.ingredients.water.value * this.waterLossRatio
+      this.ingredients.brew.value = this.fixNumber(n)
     },
     calcGrounds() {
-      let n = this.waterAmount / this.coffeeToWaterRatio
-      this.coffeeGroundsAmount = Number(this.fixNumber(n))
+      let n = this.ingredients.water.value / this.ingredients.ratio.value
+      this.ingredients.grounds.value = this.fixNumber(n)
     }
   }
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700')
 #app
   font-family: 'Roboto'

@@ -2,7 +2,8 @@
   <div class="element">
     <div class="display">
       <!-- <i class="fas fa-minus" @click="decrementItem"></i> -->
-      <input type="number" :id="name" :value="val" v-on:input="calculate">
+      <input type="number" :id="id" :value="value" @input="emitInput" />
+      <Incrementer v-on:increment="emitIncrement"></Incrementer>
       <!-- <i class="fas fa-plus" @click="incrementItem"></i> -->
     </div>
     <div class="description">{{ description }}</div>
@@ -10,14 +11,17 @@
 </template>
 
 <script>
-
+import Incrementer from './Incrementer.vue'
 export default {
+  components: {
+    Incrementer
+  },
   props: {
-    name: {
+    id: {
       type: String,
       required: true
     },
-    val: {
+    value: {
       type: Number,
       required: true
     },
@@ -30,12 +34,14 @@ export default {
     return {}
   },
   methods: {
-    calculate(): {
-      this.$emit('calculate-new-values' newPropvalue) // newPropvalue not implemented!
+    emitInput(event) {
+      this.$emit('input', { id: this.id, value: event.target.value })
+    },
+    emitIncrement() {
+      let newValue = this.value + 1
+      this.$emit('input', { id: this.id, value: newValue })
     }
-  },
-  watch: {},
-  computed: {}
+  }
 }
 </script>
 <style lang="sass">
@@ -55,7 +61,7 @@ export default {
 input
   background: none
   outline: none
-  border: none
+    border: none
   width: 20vw
   display: block
   text-align: center
@@ -130,8 +136,7 @@ input:invalid
     width: 90vw
   .display
     justify-content: center
-  .fas
-    display: block
+
   input
     width: 70vw
     font-size: 17vw
