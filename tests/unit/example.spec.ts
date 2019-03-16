@@ -1,13 +1,9 @@
-import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import { expect } from 'chai'
+import { shallowMount } from '@vue/test-utils'
+import Ingredient from '@/components/Ingredient.vue'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
-    });
-    expect(wrapper.text()).to.include(msg);
-  });
-});
+const factory = (
+  values = { id: 'someid', value: 5, description: 'something' }
+) => {
+  return shallowMount(Ingredient, { data: { ...values } })
+}
