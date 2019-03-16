@@ -7,27 +7,27 @@
     <main>
       <div class="container">
         <Ingredient
-          :id="ingredients.brew.name"
-          :value="ingredients.brew.value"
-          :description="ingredients.brew.description"
+          :id="brew.name"
+          :value="brew.value"
+          :description="brew.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :id="ingredients.water.name"
-          :value="ingredients.water.value"
-          :description="ingredients.water.description"
+          :id="water.name"
+          :value="water.value"
+          :description="water.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :id="ingredients.grounds.name"
-          :value="ingredients.grounds.value"
-          :description="ingredients.grounds.description"
+          :id="grounds.name"
+          :value="grounds.value"
+          :description="grounds.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
-          :id="ingredients.ratio.name"
-          :value="ingredients.ratio.value"
-          :description="ingredients.ratio.description"
+          :id="ratio.name"
+          :value="ratio.value"
+          :description="ratio.description"
           v-on:input="calculate"
         ></Ingredient>
       </div>
@@ -35,88 +35,96 @@
   </div>
 </template>
 
-<script>
-// import bus from './eventBus.js'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import Ingredient from './components/Ingredient.vue'
 
-export default {
-  name: 'app',
+interface Element {
+  [key: string]: string | number
+  name: string
+  value: number
+  description: string
+}
+interface Elements {
+  [key: string]: Element
+}
+
+@Component({
   components: {
     Ingredient
-  },
-  data() {
-    return {
-      waterLossRatio: 0.875,
-      waterGainRatio: 1.14288,
-      ingredients: {
-        // base values
-        brew: {
-          name: 'brew',
-          value: 175,
-          description: 'resulting coffee (ml)'
-        },
-        water: {
-          name: 'water',
-          value: 200,
-          description: 'water (ml)'
-        },
-        grounds: {
-          name: 'grounds',
-          value: 12.5,
-          description: 'coffee grounds (g)'
-        },
-        ratio: {
-          name: 'ratio',
-          value: 16,
-          description: 'ratio (water/grounds)'
-        }
-      }
-    }
-  },
-  methods: {
-    fixNumber(num) {
-      // fix number to be one decimal after comma
-      num = parseFloat(num.toFixed(1))
-      if (num % 1 === 0) {
-        return parseInt(num)
-      }
-      return num
-    },
-    calculate(data) {
-      this.ingredients[data.id].value = data.value
-      if (data.id === 'brew') {
-        // this.calcGrounds()
-        this.calcWaterBasedOnBrew()
-      }
-      if (data.id === 'water') {
-        this.calcResultingCoffee()
-        this.calcGrounds()
-      }
-      if (data.id === 'grounds') {
-        this.calcWater()
-        this.calcResultingCoffee()
-      }
-      if (data.id === 'ratio') {
-        this.calcWater()
-        this.calcResultingCoffee()
-      }
-    },
-    calcWater() {
-      let n = this.ingredients.grounds.value * this.ingredients.ratio.value
+  }
+})
+export default class App extends Vue {
+  private waterLossRatio: number = 0.875
+  private waterGainRatio: number = 1.14288
 
-      this.ingredients.water.value = this.fixNumber(n)
-    },
-    calcWaterBasedOnBrew() {
-      let n = this.ingredients.brew.value * this.waterGainRatio
-      this.ingredients.water.value = this.fixNumber(n)
-    },
-    calcResultingCoffee() {
-      let n = this.ingredients.water.value * this.waterLossRatio
-      this.ingredients.brew.value = this.fixNumber(n)
-    },
-    calcGrounds() {
-      let n = this.ingredients.water.value / this.ingredients.ratio.value
-      this.ingredients.grounds.value = this.fixNumber(n)
+  private brew: Element = {
+    name: 'brew',
+    value: 175,
+    description: 'resulting coffee (ml)'
+  }
+  private water: Element = {
+    name: 'water',
+    value: 200,
+    description: 'water (ml)'
+  }
+  private grounds: Element = {
+    name: 'grounds',
+    value: 12.5,
+    description: 'coffee grounds (g)'
+  }
+  private ratio: Element = {
+    name: 'ratio',
+    value: 16,
+    description: 'ratio (water/grounds)'
+  }
+  private allIngredients: Elements = {
+    brew: this.brew,
+    water: this.water,
+    grounds: this.grounds,
+    ratio: this.ratio
+  }
+  private fixNumber(num: number) {
+    // fix number to be one decimal after comma
+    num = parseFloat(num.toFixed(1))
+    // if (num % 1 === 0) {
+    //   return num
+    // }
+    return num
+  }
+  private calcWater() {
+    const n = this.grounds.value * this.ratio.value
+    this.water.value = this.fixNumber(n)
+  }
+  private calcWaterBasedOnBrew() {
+    const n = this.brew.value * this.waterGainRatio
+    this.water.value = this.fixNumber(n)
+  }
+  private calcResultingCoffee() {
+    const n = this.water.value * this.waterLossRatio
+    this.brew.value = this.fixNumber(n)
+  }
+  private calcGrounds() {
+    const n = this.water.value / this.ratio.value
+    this.grounds.value = this.fixNumber(n)
+  }
+  private calculate(data: any) {
+    this.allIngredients[data.id].value = data.value
+    if (data.id === 'brew') {
+      // this.calcGrounds()
+      this.calcWaterBasedOnBrew()
+    }
+    if (data.id === 'water') {
+      this.calcResultingCoffee()
+      this.calcGrounds()
+    }
+    if (data.id === 'grounds') {
+      this.calcWater()
+      this.calcResultingCoffee()
+    }
+    if (data.id === 'ratio') {
+      this.calcWater()
+      this.calcResultingCoffee()
     }
   }
 }

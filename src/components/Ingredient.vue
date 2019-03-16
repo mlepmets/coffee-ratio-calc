@@ -2,56 +2,35 @@
   <div class="element">
     <div class="display">
       <!-- <Decrementer v-on:decrement="emitDecrement"></Decrementer> -->
-      <i
-        class="fas fa-minus"
-        @click="$emit('input', { id: id, value: value - 1 })"
-      ></i>
-      <input type="number" :id="id" :value="value" @change="emitInput" />
+      <i class="fas fa-minus" @click="$emit('input', { id: id, value: value - 1 })"></i>
+      <input type="number" :id="id" :value="value" @change="emitInput">
       <!-- <Incrementer v-on:increment="emitIncrement"></Incrementer> -->
-      <i
-        class="fas fa-plus"
-        @click="$emit('input', { id: id, value: value + 1 })"
-      ></i>
+      <i class="fas fa-plus" @click="$emit('input', { id: id, value: value + 1 })"></i>
     </div>
     <div class="description">{{ description }}</div>
   </div>
 </template>
 
-<script>
-// import Incrementer from './Incrementer.vue'
-// import Decrementer from './Decrementer.vue'
-export default {
-  // components: {
-  //   Incrementer,
-  //   Decrementer
-  // },
-  props: {
-    id: {
-      type: String,
-      required: true
-    },
-    value: {
-      type: Number,
-      required: true
-    },
-    description: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    emitInput(event) {
-      this.$emit('input', {
-        id: this.id,
-        value: parseFloat(event.target.value)
-      })
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+
+@Component
+export default class Ingredient extends Vue {
+  @Prop() private id!: string
+  @Prop() private value!: number
+  @Prop() private description!: string
+
+  private emitInput(event: Event) {
+    const eventTarget = event.target as HTMLInputElement
+    this.$emit('input', {
+      id: this.id,
+      value: eventTarget.value
+    })
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
 
 .element
@@ -140,6 +119,7 @@ i
   .fas
     display: block
     scolor: black
+    visibility: visible
   input
     width: 70vw
     font-size: 17vw
