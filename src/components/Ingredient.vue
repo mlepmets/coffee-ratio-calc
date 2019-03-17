@@ -31,11 +31,7 @@ export default class Ingredient extends Vue {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="sass">
-
-.element
-  display: inline
-  width: 20vw
+<style lang="sass" scoped>
 .description
   position: relative
   bottom: 15px
@@ -95,11 +91,6 @@ i
 
 // Media queries
 @media screen and (max-width: 1200px)
-  .container
-    flex-wrap: wrap
-    margin-top: 5vh
-  .element
-    width: 40vw
   input
     width: 40vw
     font-size: 12vw
@@ -109,11 +100,6 @@ i
 @media screen and (max-width: 500px)
   #app
     margin-top: 1vh
-  .container
-    flex-wrap: wrap
-    margin-top: 0
-  .element
-    width: 90vw
   .display
     justify-content: center
   .fas

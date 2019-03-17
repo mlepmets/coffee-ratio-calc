@@ -7,24 +7,28 @@
     <main>
       <div class="container">
         <Ingredient
+          class="element"
           :id="brew.name"
           :value="brew.value"
           :description="brew.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
+          class="element"
           :id="water.name"
           :value="water.value"
           :description="water.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
+          class="element"
           :id="grounds.name"
           :value="grounds.value"
           :description="grounds.description"
           v-on:input="calculate"
         ></Ingredient>
         <Ingredient
+          class="element"
           :id="ratio.name"
           :value="ratio.value"
           :description="ratio.description"
@@ -144,6 +148,9 @@ export default class App extends Vue {
   display: flex
   align-items: center
   justify-content: center
+.element
+  display: inline
+  width: 20vw
 body
   margin: 0
   padding: 0
@@ -162,11 +169,21 @@ p
   font-family: 'Roboto'
   font-weight: 400
 @media screen and (max-width: 1200px)
+  .container
+    flex-wrap: wrap
+    margin-top: 5vh
+  .element
+    width: 40vw
   h1
     font-size: 8vw
   p
     font-size: 4vw
 @media screen and (max-width: 500px)
+  .container
+    flex-wrap: wrap
+    margin-top: 0
+  .element
+    width: 90vw
   h1
     font-size: 12vw
     margin-bottom: 0
