@@ -43,5 +43,3 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## TODO
 
 Unit tests
-
-Scoped CSS

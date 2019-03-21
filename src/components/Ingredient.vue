@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Ingredient extends Vue {
@@ -20,12 +20,13 @@ export default class Ingredient extends Vue {
   @Prop() private value!: number
   @Prop() private description!: string
 
+  @Emit('input')
   private emitInput(event: Event) {
     const eventTarget = event.target as HTMLInputElement
-    this.$emit('input', {
+    return {
       id: this.id,
       value: eventTarget.value
-    })
+    }
   }
 }
 </script>
