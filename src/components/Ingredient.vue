@@ -3,7 +3,7 @@
     <div class="display">
       <!-- <Decrementer v-on:decrement="emitDecrement"></Decrementer> -->
       <i class="fas fa-minus" @click="$emit('input', { id: id, value: value - 1 })"></i>
-      <input type="number" :id="id" :value="value" @change="emitInput">
+      <input ref="inputField" type="number" :id="id" :value="value" @change="emitInput">
       <!-- <Incrementer v-on:increment="emitIncrement"></Incrementer> -->
       <i class="fas fa-plus" @click="$emit('input', { id: id, value: value + 1 })"></i>
     </div>
