@@ -11,28 +11,28 @@
           :id="brew.name"
           :value="brew.value"
           :description="brew.description"
-          v-on:input="calculate"
+          v-on:new-value="calculate"
         ></Ingredient>
         <Ingredient
           class="element"
           :id="water.name"
           :value="water.value"
           :description="water.description"
-          v-on:input="calculate"
+          v-on:new-value="calculate"
         ></Ingredient>
         <Ingredient
           class="element"
           :id="grounds.name"
           :value="grounds.value"
           :description="grounds.description"
-          v-on:input="calculate"
+          v-on:new-value="calculate"
         ></Ingredient>
         <Ingredient
           class="element"
           :id="ratio.name"
           :value="ratio.value"
           :description="ratio.description"
-          v-on:input="calculate"
+          v-on:new-value="calculate"
         ></Ingredient>
       </div>
     </main>

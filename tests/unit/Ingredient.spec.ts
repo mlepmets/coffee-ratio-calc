@@ -1,8 +1,5 @@
-import NumberRenderer from '@/components/NumberRenderer.vue'
 import { expect } from 'chai'
-import { assert } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import { mount } from '@vue/test-utils'
 import Ingredient from '@/components/Ingredient.vue'
 
 const factory = (
@@ -37,17 +34,10 @@ describe('Ingredient.vue', () => {
     it('Renders the prop called description', () => {
       const wrapper = factory()
       expect(wrapper.find('.description').text()).to.equal('something')
+    }),
+    it('Emits an event when the input field value changes', () => {
+      const wrapper = factory()
+      wrapper.find('input').trigger('change')
+      expect(wrapper.emitted('new-value')).to.have.length(1)
     })
 })
-
-// describe('NumberRenderer', () => {
-//   it('renders even numbers', () => {
-//     const wrapper = shallowMount(NumberRenderer, {
-//       propsData: {
-//         even: false
-//       }
-//     })
-
-//     expect(wrapper.text()).to.equal('1, 3, 5, 7, 9')
-//   })
-// })

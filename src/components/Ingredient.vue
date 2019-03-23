@@ -20,8 +20,8 @@ export default class Ingredient extends Vue {
   @Prop() private value!: number
   @Prop() private description!: string
 
-  @Emit('input')
-  private emitInput(event: Event) {
+  @Emit('new-value')
+  public emitInput(event: Event) {
     const eventTarget = event.target as HTMLInputElement
     return {
       id: this.id,
