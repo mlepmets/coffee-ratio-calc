@@ -1,11 +1,9 @@
 <template>
   <div class="element">
     <div class="display">
-      <!-- <Decrementer v-on:decrement="emitDecrement"></Decrementer> -->
-      <i class="fas fa-minus" @click="$emit('input', { id: id, value: value - 1 })"></i>
-      <input ref="inputField" type="number" :id="id" :value="value" @change="emitInput">
-      <!-- <Incrementer v-on:increment="emitIncrement"></Incrementer> -->
-      <i class="fas fa-plus" @click="$emit('input', { id: id, value: value + 1 })"></i>
+      <i class="fas fa-minus" @touchend="emitDecrementedValue"></i>
+      <input ref="inputField" type="number" :id="id" :value="value" @change="emitValueChanged">
+      <i class="fas fa-plus" @touchend="emitIcrementedValue"></i>
     </div>
     <div class="description">{{ description }}</div>
   </div>
@@ -21,11 +19,27 @@ export default class Ingredient extends Vue {
   @Prop() private description!: string
 
   @Emit('new-value')
-  public emitInput(event: Event) {
+  private emitValueChanged(event: Event) {
     const eventTarget = event.target as HTMLInputElement
     return {
       id: this.id,
       value: eventTarget.value
+    }
+  }
+  @Emit('new-value')
+  private emitDecrementedValue() {
+    const decrementedValue = this.value - 1
+    return {
+      id: this.id,
+      value: decrementedValue
+    }
+  }
+  @Emit('new-value')
+  private emitIcrementedValue() {
+    const icrementedValue = this.value + 1
+    return {
+      id: this.id,
+      value: icrementedValue
     }
   }
 }
